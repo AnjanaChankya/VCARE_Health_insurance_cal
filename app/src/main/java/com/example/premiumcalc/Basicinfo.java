@@ -3,6 +3,7 @@ package com.example.premiumcalc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -76,15 +77,16 @@ public class Basicinfo extends AppCompatActivity {
             }
         });
         Age.setOnSeekBarChangeListener((new SeekBar.OnSeekBarChangeListener() {
-            int prog = 18;
+            int prog = 0;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 int agee;
                 agee = prog +18;
-                age1 = agee;
+                //age1 = agee;
                 prog  = i;
                 Agetxt.setText(String.valueOf(prog+18));
+                age1 = Integer.parseInt(Agetxt.getText().toString());
                 if(agee<=40){
                     Term.setMax(20);
                     Termlength.setText("30");
@@ -179,12 +181,12 @@ public class Basicinfo extends AppCompatActivity {
                 String valid = namee.getText().toString();
                 if(valid.matches(""))
                 {
-                    Toast.makeText(Basicinfo.this,"You did not enter a username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Basicinfo.this,"Please Enter Your Name",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if (rg.getCheckedRadioButtonId() == -1)
                 {
-                    Toast.makeText(Basicinfo.this,"You did not selected a gender", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Basicinfo.this,"Please Select the Gender", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else {

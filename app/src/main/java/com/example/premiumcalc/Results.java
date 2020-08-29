@@ -26,9 +26,9 @@ public class Results extends AppCompatActivity {
     Button viewres;
     Button recal;
 
-    public static  double smokerate;
-    public static double  alcoholrate;
-    public static double chronorate;
+    public static  double smokerate = 0;
+    public static double  alcoholrate = 0;
+    public static double chronorate = 0;
 
     private double genderrate;
     private double termrate;
@@ -88,17 +88,18 @@ public class Results extends AppCompatActivity {
         if(Basicinfo.gender == "Male"){
             genderrate = 3.0;
         }
-        else{
-            genderrate = 1.0;
-        }
+        else genderrate = 1.0;
 
+        Double mortalitycost = mortalcost(Basicinfo.lifecvr,Basicinfo.age1);
+        Double annualprememium = annualpremium(mortalitycost,smokerate,alcoholrate,chronorate,genderrate,Basicinfo.age1);
+        Double monthlypremium2 = monthlypremium(annualprememium);
 
-        Double mortalitycost = (Basicinfo.lifecvr/1000)*(((13.0/21)*Basicinfo.age1)-(64/7));
-        Double annualprememium = (((mortalitycost/100) * (smokerate+alcoholrate+chronorate+genderrate))+ (mortalitycost) + (mortalitycost/100*0.6)*Basicinfo.years);
-        Double monthlypremium2 = (((annualprememium/100)*8) + annualprememium)/12;
+        //Double mortalitycost = (Basicinfo.lifecvr/1000)*(((13.0/21)*Basicinfo.age1)-(64/7));
+        //Double annualprememium = (((mortalitycost/100) * (smokerate+alcoholrate+chronorate+genderrate))+ (mortalitycost) + (mortalitycost/100*0.6)*Basicinfo.years);
+        //Double monthlypremium2 = (((annualprememium/100)*8) + annualprememium)/12;
 
         premiumyearly.setText(String.format("%.2f",annualprememium));
-        premiummonthly.setText(String.format("%.2f",monthlypremium2));
+        premiummonthly.setText(String.format("%.2f",mortalitycost));
     }
 
     public void addData() {
@@ -118,7 +119,7 @@ public class Results extends AppCompatActivity {
 
                 }*/
                 AlertDialog alertDialog = new AlertDialog.Builder(Results.this).create();
-                alertDialog.setMessage("Data Inserted");
+                alertDialog.setMessage("Data Inserted Successfully !");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
@@ -143,9 +144,9 @@ public class Results extends AppCompatActivity {
                while(res.moveToNext()){
 
                    buffer.append("Name: " +res.getString(1) +"\n");
-                   buffer.append("Cover on Natural Death : " +res.getString(2) +"\n");
-                   buffer.append("Cover on Accident Death " +res.getString(3) +"\n");
-                   buffer.append("Cover on illness Death " +res.getString(4) +"\n");
+                   buffer.append("Cover on Permanent Disability \n (due to accident) : " +res.getString(2) +"\n");
+                   buffer.append("Cover on Permanent Disability \n (due to illness) " +res.getString(3) +"\n");
+                   buffer.append("Cover on Surgery " +res.getString(4) +"\n");
                    buffer.append("Cover on hospital per day: " +res.getString(5) +"\n");
                    buffer.append("Monthly premium: " +res.getString(6) +"\n");
                    buffer.append("Annual premium: " +res.getString(7) +"\n\n\n");
@@ -163,4 +164,19 @@ public class Results extends AppCompatActivity {
         builder.show();
 
     }
+    public double mortalcost(int lifecover,int age){
+         double mortcost;
+        mortcost = (lifecover/1000)*(((13.0/21)*age)-(64/7));
+        return mortcost;
+    }
+    public double annualpremium(double mortalcost, double smoke,double alcohol,double chronic,double gender,int age){
+        double annual = (((mortalcost/100) * (smoke+alcohol+chronic+gender))+ (mortalcost) + (mortalcost/100*0.6)*age);
+        return  annual;
+    }
+    public double monthlypremium( double annual){
+        double monthpremium = (((annual/100)*8) + annual)/12;
+        return monthpremium;
+
+    }
+
 }
