@@ -99,7 +99,7 @@ public class Results extends AppCompatActivity {
         //Double monthlypremium2 = (((annualprememium/100)*8) + annualprememium)/12;
 
         premiumyearly.setText(String.format("%.2f",annualprememium));
-        premiummonthly.setText(String.format("%.2f",mortalitycost));
+        premiummonthly.setText(String.format("%.2f",monthlypremium2));
     }
 
     public void addData() {
