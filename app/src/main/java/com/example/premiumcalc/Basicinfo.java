@@ -1,7 +1,9 @@
 package com.example.premiumcalc;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -179,15 +181,15 @@ public class Basicinfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String valid = namee.getText().toString();
-                if(valid.matches(""))
+                if(valid.matches("")||valid.matches("Name"))
                 {
-                    Toast.makeText(Basicinfo.this,"Please Enter Your Name",Toast.LENGTH_SHORT).show();
-                    return;
+
+                    Toast.makeText( Basicinfo.this,"Please Enter your name",Toast.LENGTH_LONG).show();
+
                 }
                 else if (rg.getCheckedRadioButtonId() == -1)
                 {
-                    Toast.makeText(Basicinfo.this,"Please Select the Gender", Toast.LENGTH_SHORT).show();
-                    return;
+                    Toast.makeText(Basicinfo.this,"Please select the gender !",Toast.LENGTH_LONG).show();
                 }
                 else {
 

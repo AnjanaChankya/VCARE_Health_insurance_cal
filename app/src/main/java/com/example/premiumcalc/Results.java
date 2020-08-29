@@ -108,25 +108,16 @@ public class Results extends AppCompatActivity {
             public void onClick(View view) {
                 boolean isinsterted = mydb.insertData(name1.getText().toString(),naturaldeath.getText().toString(),accidential.getText().toString(),criticaldeath.getText().toString(),hospitalpay.getText().toString(),premiummonthly.getText().toString(),premiumyearly.getText().toString());
 
-                /*if(isinsterted = true){
+                if(isinsterted = true){
 
                     Toast.makeText(Results.this,"Data Inserted",Toast.LENGTH_LONG).show();
-
 
                 }
                 else{
                     Toast.makeText(Results.this,"Data Not Inserted",Toast.LENGTH_LONG).show();
 
-                }*/
-                AlertDialog alertDialog = new AlertDialog.Builder(Results.this).create();
-                alertDialog.setMessage("Data Inserted Successfully !");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+                }
+
 
             }
         });
